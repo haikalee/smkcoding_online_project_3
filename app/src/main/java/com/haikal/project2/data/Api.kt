@@ -6,16 +6,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 class Api {
     companion object {
         val mathdro = "https://covid19.mathdro.id/api/"
-        val kawalCorona = "https://api.kawalcorona.com/"
+        val bnpb = "https://services5.arcgis.com/"
         val servicesMathdro: CoronaServices
             get() {
                 val r = Retrofit.Builder().baseUrl(mathdro).addConverterFactory(GsonConverterFactory.create()).build()
                 val t =  r.create(CoronaServices::class.java)
                 return t
             }
-        val servicesKawalCorona: CoronaServices
+        val servicesBnpb: CoronaServices
             get() {
-                val r = Retrofit.Builder().baseUrl(kawalCorona).addConverterFactory(GsonConverterFactory.create()).build()
+                val r = Retrofit.Builder().baseUrl(bnpb).addConverterFactory(GsonConverterFactory.create()).build()
                 val t =  r.create(CoronaServices::class.java)
                 return t
             }

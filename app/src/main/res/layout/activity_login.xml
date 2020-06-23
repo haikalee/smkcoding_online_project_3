@@ -7,7 +7,6 @@
     android:background="@android:color/darker_gray"
     tools:context=".LoginActivity">
 
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="500dp"
@@ -19,56 +18,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp">
-
+            android:padding="30dp">
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tv_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SIGN IN"
-                android:textColor="@color/colorAccent"
-                android:textSize="30sp"
+                android:layout_centerHorizontal="true"
+                android:text="LOGIN"
+                android:textSize="35sp"
                 android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="150dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtUsername"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Username"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:hint="Password"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
             <Button
+                android:id="@+id/btn_login_google"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.MaterialComponents.Button"
-                android:background="@color/colorPrimary"
-                android:textColor="@android:color/white"
-                android:text="login" />
+                android:layout_below="@+id/tv_login"
+                android:layout_marginBottom="20dp"
+                android:text="Google" />
 
-        </LinearLayout>
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/btn_login_facebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_login_google"
+                android:layout_marginBottom="20dp" />
 
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

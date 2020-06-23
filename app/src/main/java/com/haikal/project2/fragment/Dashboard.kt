@@ -1,5 +1,6 @@
 package com.haikal.project2.fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -8,13 +9,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.haikal.project2.Global
 import com.haikal.project2.Provinsi
 
 import com.haikal.project2.R
 import com.haikal.project2.data.Api
-import com.haikal.project2.data.kawalcorona.indonesia.IndonesiaItem
-import com.haikal.project2.data.mathdro.GlobalDetail
+import com.haikal.project2.data.mathdro.global.GlobalDetail
+import com.haikal.project2.data.mathdro.indonesia.Indonesia
 import com.haikal.project2.util.dismissLoading
 import com.haikal.project2.util.showLoading
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -57,6 +60,11 @@ class Dashboard : Fragment() {
                 e.printStackTrace()
             }
         }
+
+        btn_logout.setOnClickListener{
+            Firebase.auth.signOut()
+            this.fragmentManager!!.beginTransaction().remove(this).commit()
+        }
     }
 
     private fun fetchJsonGlobal() {
@@ -76,18 +84,18 @@ class Dashboard : Fragment() {
     }
 
     private fun fetchJsonIndonesia() {
-        val call: Call<List<IndonesiaItem>> = Api.servicesKawalCorona.getKawalCoronaIndonesia()
-        call.enqueue(object: Callback<List<IndonesiaItem>>{
-            override fun onFailure(call: Call<List<IndonesiaItem>>, t: Throwable) {
+        val call: Call<Indonesia> = Api.servicesMathdro.getMathdroIndonesia()
+        call.enqueue(object: Callback<Indonesia> {
+            override fun onFailure(call: Call<Indonesia>, t: Throwable) {
                 dismissLoading(sw)
                 t.printStackTrace()
             }
 
-            override fun onResponse(call: Call<List<IndonesiaItem>>, response: Response<List<IndonesiaItem>>) {
+            override fun onResponse(call: Call<Indonesia>, response: Response<Indonesia>) {
                 dismissLoading(sw)
-                tv_indonesia_positif.text = response.body()!![0].positif
-                tv_indonesia_sembuh.text = response.body()!![0].sembuh
-                tv_indonesia_meninggal.text = response.body()!![0].meninggal
+                tv_indonesia_positif.text = response.body()!!.confirmed.value.toString()
+                tv_indonesia_sembuh.text = response.body()!!.recovered.value.toString()
+                tv_indonesia_meninggal.text = response.body()!!.deaths.value.toString()
             }
         })
     }
